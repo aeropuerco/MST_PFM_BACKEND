@@ -5,10 +5,29 @@
 //importar modelos
 const User = require('../models/UserModel')
 
+
+// Crear un usuario - Create - POST - /
+const createUser = async (req,res, next)=> {
+    try{
+        
+        const newUser = new User(req.body);
+        const savedUser = await newUser.save();
+     
+        res.status(201).json(savedUser);
+    }
+    catch (err) {
+        //manejo del error de la petición
+        res.status(400).json({error: err.message}) // 400: Bad request
+
+    }
+}
+
+
+
 // TRAER TODOS LOS USUARIOS - Read - GET - /home
 const getAllEditors = async (req,res) => {
-    const allUsers = await User.find()
-    res.status(200).json(allUsers)
+    const allEditors = await User.find({role:'editor'})
+    res.status(200).json(allEditors)
 }
 
 
@@ -31,21 +50,6 @@ const getUserById = async (req,res) => {
 
 }
 
-// Crear un usuario - Create - POST - /
-const createUser = async (req,res, next)=> {
-    try{
-        
-        const newUser = new User(req.body);
-        const savedUser = await newUser.save();
-     
-        res.status(201).json(savedUser);
-    }
-    catch (err) {
-        //manejo del error de la petición
-        res.status(400).json({error: err.message}) // 400: Bad request
-
-    }
-}
 
 // Actualizar un usuario - Update - PUT - /:id
 

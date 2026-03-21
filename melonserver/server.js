@@ -38,6 +38,11 @@ const userRoutes = require('./routes/userRoutes')
 app.use('/api/users', userRoutes)  // Definimos el endpoint de nuestra api hacia este modelo
 
 
+// Rutas de Post
+const postRoutes = require('./routes/postRoutes')
+app.use('/api/posts', postRoutes)  // Definimos el endpoint de nuestra api hacia este modelo
+
+
 
 // Rutas de Auth
 /* const authRoutes = require('./routes/authRoutes')

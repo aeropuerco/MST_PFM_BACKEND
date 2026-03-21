@@ -14,4 +14,4 @@ const postSchema = new mongoose.Schema({
 
 // Crear el modelo a partir del esquema
 
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("Post", postSchema)
