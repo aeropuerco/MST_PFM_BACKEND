@@ -7,18 +7,22 @@ const router = express.Router()
 
 
 const { 
-    createPost
+    createPost,
+    getAllPosts,
+    getPostById,
+    updatePost,
+    deletePost
  } = require('../controllers/postController')
 
 
 router.post('/createpost', createPost)
 
-//router.get('/posts', getAllPosts)
-//router.get('/:id', getUserById)
+router.get('/', getAllPosts)
+router.get('/:id', getPostById)
 
-//router.put('/:id', updatePost)
+router.put('/update/:id', updatePost)
 
-//router.delete('/:id', deletePost)
+router.delete('/delete/:id', deletePost)
 
 
 

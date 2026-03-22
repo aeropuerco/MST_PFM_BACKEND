@@ -29,10 +29,10 @@ const Comment = require('../models/CommentModel')
     const getCommentsByPost = async (req,res) => {
         try {
             const { id } = req.params; //path variable con params
-            const comments = await Comment.find({post:{ id }})
+            const comments = await Comment.find({post: id })
             
             if(!comments){
-                return res.status(404).json({ error: "Usuario no encontado"}) // not found
+                return res.status(404).json({ error: "Post no encontado"}) // not found
             }
     
             return res.status(200).json(comments) // 200 : OK

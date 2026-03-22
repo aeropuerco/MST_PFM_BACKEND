@@ -7,9 +7,9 @@ const router = express.Router()
 
 
 const { 
+    createUser,
     getAllEditors,
     getUserById,
-    createUser,
     updateUser,
     deleteUser
  } = require('../controllers/userController')
@@ -17,10 +17,10 @@ const {
 
 router.post('/createuser', createUser)
 
-router.get('/', getAllEditors)
+router.get('/editors', getAllEditors)
 router.get('/:id', getUserById)
 
-router.put('/:id', updateUser)
+router.put('/update/:id', updateUser)
 
 router.delete('/:id', deleteUser)
 

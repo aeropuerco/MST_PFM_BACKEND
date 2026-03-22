@@ -35,12 +35,20 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Rutas de User
 const userRoutes = require('./routes/userRoutes')
-app.use('/api/users', userRoutes)  // Definimos el endpoint de nuestra api hacia este modelo
+app.use('/api/users', userRoutes)
 
 
 // Rutas de Post
 const postRoutes = require('./routes/postRoutes')
-app.use('/api/posts', postRoutes)  // Definimos el endpoint de nuestra api hacia este modelo
+app.use('/api/posts', postRoutes)
+
+// Rutas de Comment
+const commentRoutes = require('./routes/commentRoutes')
+app.use('/api/comments', commentRoutes)
+
+// Rutas de Admin
+const adminRoutes = require('./routes/adminRoutes')
+app.use('/admin', adminRoutes)
 
 
 
