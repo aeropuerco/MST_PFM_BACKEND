@@ -11,7 +11,11 @@ const Comment = require('../models/CommentModel')
 const createEditor = async (req,res, next)=> {
     try{
         
-        const newEditor = new User(req.body);
+        const newEditor = new User(
+            {...req.body,
+                role: 'editor'
+            }
+        );
         const savedEditor = await newEditor.save();
      
         res.status(201).json(savedEditor);
