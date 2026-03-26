@@ -5,20 +5,25 @@
 const express = require('express')
 const router = express.Router()
 
+const auth = require('../middlewares/authMiddleware')
+const admin = require('../middlewares/adminMiddleware')
+
 
 const { 
     createComment,
-    getCommentsByPost
+    getCommentsByPost,
+    deleteComment
  } = require('../controllers/commentController')
 
 
-router.post('/createcomment', createComment)
+router.post('/createcomment', auth, createComment)
 
 router.get('/post/:id', getCommentsByPost)
 
 //router.put('/:id', updatePost)  // LOS COMENTARIOS NO SE PUEDEN EDITAR
 
-//router.delete('/:id', deleteComment) // SOLO PUEDEN BORRAR ADMINS
+// SOLO PUEDEN BORRAR ADMINS
+router.delete('/deletecomment/:id', auth, admin, deleteComment)
 
 
 

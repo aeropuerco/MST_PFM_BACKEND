@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
     name: {type:String, required: true},
     email : {type:String, required:true},
     password: {type: String, required: true, minlength: 6},
-    role : {type: String, required: true, maxlength:8}
+    role : {type: String, maxlength:8}
 },{ timestamps: true })
 
 // Crear el modelo a partir del esquema

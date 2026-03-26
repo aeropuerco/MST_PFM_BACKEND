@@ -44,12 +44,36 @@ const Comment = require('../models/CommentModel')
     }
 
 
+    
 
+    // Eliminar un comentario - SOlo admins - Delete - DELETE - /:id
+    
+    const deleteComment = async (req, res, next) => {
+        try {
+            const {id} = req.params;
+            const deleteComment = await Comment.findByIdAndDelete(id)
+    
+            if (!deleteComment) {
+                return res.status(404).json('Comentario no encontrado')
+    
+            }
+    
+            return res.status(200).json('Comentario eliminado correctamente')
+    
+            
+        } catch (err) {
+            next(err)
+    
+        }
+        
+    }
+    
 
 
 // EXPORTACIONES
 
 module.exports  = { 
     createComment,
-    getCommentsByPost
+    getCommentsByPost,
+    deleteComment
 }

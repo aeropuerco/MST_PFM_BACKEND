@@ -5,9 +5,14 @@
 const express = require('express')
 const router = express.Router()
 
+const auth = require('../middlewares/authMiddleware')
+/* const editor = require('../middlewares/editorMiddleware') */
+const admin = require('../middlewares/adminMiddleware')
+
 
 const { 
-    createUser,
+
+    createEditor,
     getAllEditors,
     getUserById,
     updateUser,
@@ -15,14 +20,19 @@ const {
  } = require('../controllers/userController')
 
 
-router.post('/createuser', createUser)
+router.post('/createeditor', auth, admin, createEditor)
 
+// Deja pedir lista de editores a todo el mundo. No devuelve pass. Comprobado
 router.get('/editors', getAllEditors)
+
+// Pide un usuario por id, a todos. No devuelve pass. Comprobado
 router.get('/:id', getUserById)
 
-router.put('/update/:id', updateUser)
+// Solo deja modificar si: tiene token de login. Comprobado
+router.put('/update/:id', auth, updateUser)
 
-router.delete('/:id', deleteUser)
+// Solo deja eliminar si: tiene token de login y si es admin. Comprobado
+router.delete('/:id', auth, admin,  deleteUser)
 
 
 

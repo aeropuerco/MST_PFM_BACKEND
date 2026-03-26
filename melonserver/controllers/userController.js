@@ -6,14 +6,19 @@
 const User = require('../models/UserModel')
 
 
-// Crear un usuario - Create - POST - /
-const createUser = async (req,res, next)=> {
+
+// Crear un editor - SOLO ADMINS -  Create - POST - /
+const createEditor = async (req,res, next)=> {
     try{
         
-        const newUser = new User(req.body);
-        const savedUser = await newUser.save();
+        const newEditor = new User(
+            {...req.body,
+                role: 'editor'
+            }
+        );
+        const savedEditor = await newEditor.save();
      
-        res.status(201).json(savedUser);
+        res.status(201).json(savedEditor);
     }
     catch (err) {
         //manejo del error de la petición
@@ -22,11 +27,9 @@ const createUser = async (req,res, next)=> {
     }
 }
 
-
-
 // TRAER TODOS LOS USUARIOS - Read - GET - /home
 const getAllEditors = async (req,res) => {
-    const allEditors = await User.find({role:'editor'})
+    const allEditors = await User.find({role:'editor'}).select('-password')
     res.status(200).json(allEditors)
 }
 
@@ -42,7 +45,14 @@ const getUserById = async (req,res) => {
             return res.status(404).json({ error: "Usuario no encontado"}) // not found
         }
 
-        return res.status(200).json(user) // 200 : OK
+        return res.status(200).json({
+            user:{
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        }) // 200 : OK
     } catch (error) {
         return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
 
@@ -97,9 +107,9 @@ const deleteUser = async (req, res, next) => {
 // EXPORTACIONES
 
 module.exports  = { 
+    createEditor,
     getAllEditors,
     getUserById,
-    createUser,
     updateUser,
     deleteUser
 }

@@ -5,6 +5,9 @@
 const express = require('express')
 const router = express.Router()
 
+const auth = require('../middlewares/authMiddleware')
+const editor = require('../middlewares/editorMiddleware')
+const admin = require('../middlewares/adminMiddleware')
 
 const { 
     createPost,
@@ -15,14 +18,14 @@ const {
  } = require('../controllers/postController')
 
 
-router.post('/createpost', createPost)
+router.post('/createpost', auth, editor, createPost)
 
 router.get('/', getAllPosts)
 router.get('/:id', getPostById)
 
-router.put('/update/:id', updatePost)
+router.put('/update/:id', auth, editor, updatePost)
 
-router.delete('/delete/:id', deletePost)
+router.delete('/delete/:id', auth, editor, deletePost)
 
 
 

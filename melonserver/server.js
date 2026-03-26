@@ -46,16 +46,12 @@ app.use('/api/posts', postRoutes)
 const commentRoutes = require('./routes/commentRoutes')
 app.use('/api/comments', commentRoutes)
 
-// Rutas de Admin
-const adminRoutes = require('./routes/adminRoutes')
-app.use('/admin', adminRoutes)
-
 
 
 // Rutas de Auth
-/* const authRoutes = require('./routes/authRoutes')
+ const authRoutes = require('./routes/authRoutes')
 app.use('/api/auth', authRoutes)
- */
+
 
 
 // ? ////////////////////////////////////////////////////////////////
