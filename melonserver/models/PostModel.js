@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-    author : {type:String, required:true},
+    author : {
+        type:mongoose.Schema.Types.ObjectId, // Relacion con col. usuarios: guardamos el id en lugar del string del nombre.
+        ref: 'User',   
+        required:true},
     title: {type:String, required: true},
     date : {type:Date, required:true, default:Date.now},
     // se le puede pasar array para un numero indefinido de bloques. mola

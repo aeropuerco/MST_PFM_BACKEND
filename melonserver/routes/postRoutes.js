@@ -17,7 +17,7 @@ const {
     deletePost
  } = require('../controllers/postController')
 
-
+ // Solamente permite crear post a los editores.
 router.post('/createpost', auth, editor, createPost)
 
 router.get('/', getAllPosts)
