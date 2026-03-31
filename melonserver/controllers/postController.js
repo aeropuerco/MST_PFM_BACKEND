@@ -28,7 +28,7 @@ const createPost = async (req,res, next)=> {
 
 // TRAER TODOS LOS POSTS A MODO DE RESUMEN (PREVIA EN HOME) - Read - GET - /home
 const getAllPosts = async (req,res) => {
-    const allPosts = await Post.find({},{title:1, author:1, date:1, content_blocks:{ $slice:2} })
+    const allPosts = await Post.find({},{title:1, author:1, date:1, content_blocks:{ $slice:2} }).populate('author', 'name')
     // * esto filtra unicamente los campos title, author y date; y solamente los X primeros bloques del contenido.
     // * Post.find().select('title author date') tambien funciona pero no funcionaba lo de cortar parte de los bloques
 
@@ -60,14 +60,28 @@ const getPostById = async (req,res) => {
 const updatePost = async (req, res) => {
     try {
         const {id} = req.params;
-        const updatePost = await Post.findByIdAndUpdate(id, req.body, {new: true, runValidators: true}) 
+
+        const checkPost = await Post.findById(id);
+
+        if (!checkPost) {
+            return res.status(404).json({ error : "Post no encontrado"})
+
+        }
+
+        if (checkPost.author.toString() !== req.user.id) {
+            // Ojo, comprobamos que quien hizo login es el autor, para evitar estropearle el post a otros editores jeje
+            return res.status(403).json({ error: "No puedes editar posts de otros editores"})
+        }
+
+
+        const updatedPost = await Post.findByIdAndUpdate(id, req.body, {new: true, runValidators: true}) 
         
-        if (!updatePost) {
-            return res.status(404).json({error: "Post no encontrado"})
+        if (!updatedPost) {
+            return res.status(404).json({error: "ERror al actualizar, post no encontrado"})
             
         }
 
-        return res.status(200).json(updatePost) // Todo ok, devuelve el post
+        return res.status(200).json(updatedPost) // Todo ok, devuelve el post
 
     } catch (err) {
          return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
@@ -80,6 +94,20 @@ const updatePost = async (req, res) => {
 const deletePost = async (req, res, next) => {
     try {
         const {id} = req.params;
+
+        const checkPost = await Post.findById(id);
+
+        if (!checkPost) {
+            return res.status(404).json({ error : "Post no encontrado"})
+
+        }
+
+        if (checkPost.author.toString() !== req.user.id) {
+            // Ojo, comprobamos que quien hizo login es el autor, para evitar estropearle el post a otros editores jeje
+            return res.status(403).json({ error: "No puedes eliminar posts de otros editores"})
+        }
+
+
         const deletePost = await Post.findByIdAndDelete(id)
 
         if (!deletePost) {
