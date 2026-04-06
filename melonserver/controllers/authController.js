@@ -7,7 +7,7 @@ const { createToken } = require('../utils/createToken')
 
 // registro
 
-const register = async (req, res) => {
+const register = async (req, res,next) => {
     try {
         const {name, email, password} = req.body;
 
@@ -44,12 +44,13 @@ const register = async (req, res) => {
         })
     } catch (err) {
         //console.log("💥ERROR:", err.message); 
-        return res.status(500).json({error: 'Error de servidor'})
-
+        //return res.status(500).json({error: 'Error de servidor'})
+        // gestion de errores con middleware
+        next(err)
     }
 }
 
-const login = async (req,res) =>{
+const login = async (req,res,next) =>{
     try {
 
         const { name, password} = req.body;
@@ -96,7 +97,9 @@ const login = async (req,res) =>{
 
     } catch (err) {
         //console.log("💥ERROR:", err.message); 
-        return res.status(500).json({error: 'Error en el servidor, login'})
+        //return res.status(500).json({error: 'Error en el servidor, login'})
+        // gestion de errores con middleware
+        next(err)
     }
 }
 

@@ -22,8 +22,9 @@ const createEditor = async (req,res, next)=> {
     }
     catch (err) {
         //manejo del error de la petición
-        res.status(400).json({error: err.message}) // 400: Bad request
-
+        //res.status(400).json({error: err.message}) // 400: Bad request
+        // gestion de errores con middleware
+        next(err)
     }
 }
 
@@ -54,8 +55,9 @@ const getUserById = async (req,res) => {
             }
         }) // 200 : OK
     } catch (error) {
-        return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
-
+        //return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
+        // gestion de errores con middleware
+        next(err)
     }
 
 }
@@ -63,7 +65,7 @@ const getUserById = async (req,res) => {
 
 // Actualizar un usuario - Update - PUT - /:id
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
     try {
         const {id} = req.params;
         const updateUser = await User.findByIdAndUpdate(id, req.body, {new: true, runValidators: true}) 
@@ -76,7 +78,9 @@ const updateUser = async (req, res) => {
         return res.status(200).json(updateUser) // Todo ok, devuelve el usuario
 
     } catch (err) {
-         return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
+         //return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
+         // gestion de errores con middleware
+         next(err)
     }
     
 }
@@ -97,6 +101,7 @@ const deleteUser = async (req, res, next) => {
 
         
     } catch (err) {
+        // gestion de errores con middleware
         next(err)
 
     }

@@ -20,8 +20,9 @@ const createPost = async (req,res, next)=> {
     }
     catch (err) {
         //manejo del error de la petición
-        res.status(400).json({error: err.message}) // 400: Bad request
-
+        //res.status(400).json({error: err.message}) // 400: Bad request
+        // gestion de errores con middleware
+        next(err)
     }
 }
 
@@ -37,7 +38,7 @@ const getAllPosts = async (req,res) => {
 }
 
 // Abrir un post completo - Read - GET - /:id
-const getPostById = async (req,res) => {
+const getPostById = async (req,res,next) => {
     try {
         const { id } = req.params; //path variable con params
         const post = await Post.findById(id).populate('author', 'name'); // Esto reemplaza el ID por el nombre en la otra col. Buen truco!
@@ -48,8 +49,9 @@ const getPostById = async (req,res) => {
 
         return res.status(200).json(post) // 200 : OK
     } catch (error) {
-        return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
-
+        //return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
+        // gestion de errores con middleware
+        next(err)
     }
 
 }
@@ -57,7 +59,7 @@ const getPostById = async (req,res) => {
 
 // Actualizar un post - Update - PUT - /:id
 
-const updatePost = async (req, res) => {
+const updatePost = async (req, res, next) => {
     try {
         const {id} = req.params;
 
@@ -84,7 +86,9 @@ const updatePost = async (req, res) => {
         return res.status(200).json(updatedPost) // Todo ok, devuelve el post
 
     } catch (err) {
-         return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
+         //return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
+         // gestion de errores con middleware
+         next(err)
     }
     
 }

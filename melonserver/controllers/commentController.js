@@ -18,15 +18,16 @@ const Comment = require('../models/CommentModel')
         }
         catch (err) {
             //manejo del error de la petición
-            res.status(400).json({error: err.message}) // 400: Bad request
-
+            //res.status(400).json({error: err.message}) // 400: Bad request
+            // gestion de errores con middleware
+            next(err)
         }
     }
 
     
 // Obtener los comentarios de un post - /
 
-    const getCommentsByPost = async (req,res) => {
+    const getCommentsByPost = async (req,res,next) => {
         try {
             const { id } = req.params; //path variable con params
             const comments = await Comment.find({post: id })
@@ -37,8 +38,9 @@ const Comment = require('../models/CommentModel')
     
             return res.status(200).json(comments) // 200 : OK
         } catch (error) {
-            return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
-    
+            //return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
+            // gestion de errores con middleware
+            next(err)
         }
     
     }

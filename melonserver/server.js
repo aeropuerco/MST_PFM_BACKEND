@@ -65,10 +65,10 @@ app.use((req,res)=> {
     res.status(404).json({error: "Ruta no encontrada"})
 })
 
-//Middleware de Errores
-/* const errors = require('./middlewares/errors')
+// Middleware de Errores al final, para capturar cualquier cosa previa
+ const errors = require('./middlewares/errors')
 app.use(errors)
- */
+
 
 // arrancar el servidor
 

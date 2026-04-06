@@ -11,5 +11,6 @@ const userSchema = new mongoose.Schema({
 
 module.exports = mongoose.model("User", userSchema)
 
-// ! OJO QUE ESTO MAGICAMENTE ASOCIA "User" con el nombre "users" en MONGODB Atlas. 
+// ! OJO QUE ESTO MAGICAMENTE ASOCIA "User", buscará el nombre "users" en MONGODB Atlas. 
+// ! Aunque no coincida el string!!!! (User != users) pero aun así lo encuentra.
 // ! Estoy mayor para estas mie... features.
