@@ -17,7 +17,7 @@ const app = express()
         allowedHeaders: ["Content-Type", "Authorization"]
     }
 
-    app.use(cors(corsOptions));
+    //app.use(cors(corsOptions));
     app.use(cors())
 
 
@@ -57,7 +57,7 @@ app.use('/api/auth', authRoutes)
 // ? ////////////////////////////////////////////////////////////////
 
 app.get('/', (req, res) => {
-    res.send("¡Servidor ON!");
+    res.send("¡Servidor ON + CORS!");
 });
 
 // Manejo de rutas no encontradas
