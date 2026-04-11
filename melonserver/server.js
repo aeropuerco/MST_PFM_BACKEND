@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
-//const cors = require('cors')
+const cors = require('cors')
 
 //crear app de express
 const app = express()
@@ -17,8 +17,8 @@ const app = express()
         allowedHeaders: ["Content-Type", "Authorization"]
     }
 
-    //app.use(cors(corsOptions));
- //   app.use(cors())
+    app.use(cors(corsOptions));
+    app.use(cors())
 
 
 // middleware para leer JSON cuando hagamos una petición a la BBDD
@@ -33,18 +33,18 @@ mongoose.connect(process.env.MONGO_URI)
 // ? ////////////////////////////////////////////////////////////////
 
 
-// Rutas de User
+// Rutas de Users
 const userRoutes = require('./routes/userRoutes')
 app.use('/api/users', userRoutes)
 
 
 // Rutas de Post
 const postRoutes = require('./routes/postRoutes')
-app.use('/api/posts', postRoutes)
+app.use('/api/post', postRoutes)
 
 // Rutas de Comment
 const commentRoutes = require('./routes/commentRoutes')
-app.use('/api/comments', commentRoutes)
+app.use('/api/comment', commentRoutes)
 
 
 
