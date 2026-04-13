@@ -63,7 +63,7 @@ const login = async (req,res,next) =>{
         // Buscar al usuario por su email
 
         const user = await User.findOne({name})
-        console.log(name)
+        
         // No indicamos que ha fallado el email o la pass para no dar pistas
         if(!user){
             return res.status(400).json({error: 'Credenciales inválidas'})
@@ -78,7 +78,8 @@ const login = async (req,res,next) =>{
         }
 
         // creamos el token de la sesión si la pass estaba bien
-
+        console.log("LOGIN OK" + name)
+        
         const token = createToken(user._id)
 
 
