@@ -8,7 +8,7 @@ const router = express.Router()
 const auth = require('../middlewares/authMiddleware')
 /* const editor = require('../middlewares/editorMiddleware') */
 const admin = require('../middlewares/adminMiddleware')
-const { register } = require('../controllers/authController')
+const { register, setTargetRole } = require('../controllers/authController')
 
 
 const { 
