@@ -20,7 +20,11 @@ const {
     deleteUser
  } = require('../controllers/userController')
 
-
+ console.log("Auth:", auth);
+ console.log("Admin:", admin);
+ console.log("SetTargetRole:", setTargetRole);
+ console.log("Register:", register);
+ 
 //router.post('/createeditor', auth, admin, createEditor)
 router.post('/createeditor', auth, admin, setTargetRole('editor'), register)
 
