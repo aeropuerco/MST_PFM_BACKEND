@@ -8,6 +8,7 @@ const router = express.Router()
 const auth = require('../middlewares/authMiddleware')
 /* const editor = require('../middlewares/editorMiddleware') */
 const admin = require('../middlewares/adminMiddleware')
+const { register } = require('../controllers/authController')
 
 
 const { 
@@ -20,7 +21,8 @@ const {
  } = require('../controllers/userController')
 
 
-router.post('/createeditor', auth, admin, createEditor)
+//router.post('/createeditor', auth, admin, createEditor)
+router.post('/createeditor', auth, admin, setTargetRole('editor'), register)
 
 // Deja pedir lista de editores a todo el mundo. No devuelve pass. Comprobado
 router.get('/editors', getAllEditors)

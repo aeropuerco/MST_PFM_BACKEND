@@ -22,4 +22,15 @@ const auth = (req, res, next) => {
     }
 }
 
-module.exports = auth;
+
+const setTargetRole = (role) => {
+    return (req, res, next) => {
+        req.targetRole = role;
+        next();
+    }
+}
+
+module.exports = {
+    auth,
+    setTargetRole
+};

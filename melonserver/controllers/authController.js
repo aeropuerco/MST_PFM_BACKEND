@@ -24,7 +24,10 @@ const register = async (req, res,next) => {
         if (prevUser){
             return res.status(409).json({error: "El name ya esta registrado"})
         }
-        const role = "visitor";
+
+        
+        const role = req.targetRole || "visitor";
+        
         const hashedPass = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUNDS))
 
 

@@ -8,6 +8,7 @@ const User = require('../models/UserModel')
 
 
 // Crear un editor - SOLO ADMINS -  Create - POST - /
+// ELIMINAR SI FUNCIONA EL AÑADIR ROL DESDE LA RUTA, USANDO REGISTER
 const createEditor = async (req,res, next)=> {
     try{
         
