@@ -16,14 +16,14 @@ const {
  } = require('../controllers/commentController')
 
 
-router.post('/createcomment', auth, createComment)
+router.post('/create', auth, createComment)
 
 router.get('/post/:id', getCommentsByPost)
 
 //router.put('/:id', updatePost)  // LOS COMENTARIOS NO SE PUEDEN EDITAR
 
-// SOLO PUEDEN BORRAR ADMINS
-router.delete('/deletecomment/:id', auth, admin, deleteComment)
+// SOLO PUEDEN BORRAR EDITOR+AUTOR Y ADMINS
+router.delete('/delete/:id', auth, editor, deleteComment)
 
 
 

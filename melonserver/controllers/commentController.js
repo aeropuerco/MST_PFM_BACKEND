@@ -4,7 +4,7 @@
 
 //importar modelos
 const Comment = require('../models/CommentModel')
-
+const Post = require('../models/PostModel')
 
 // Crear un comenario - /
 
@@ -53,15 +53,39 @@ const Comment = require('../models/CommentModel')
     const deleteComment = async (req, res, next) => {
         try {
             const {id} = req.params;
-            const deleteComment = await Comment.findByIdAndDelete(id)
-    
-            if (!deleteComment) {
-                return res.status(404).json('Comentario no encontrado')
-    
+
+            // Comprobaciones previa para ver autor de comentario, del post, para saber si se puede eliminar
+
+            const comment = await Comment.findById(id)
+
+            if(!comment){
+                    return res.status(404).json({ error: "Comentario no encontrado"})
             }
-    
-            return res.status(200).json('Comentario eliminado correctamente')
-    
+
+            const post = await Post.findById(comment.post);
+            
+/*             if(!post){
+                return res.status(404).json('Post no encontrado')
+             } */
+
+            //COMPROBACION DE LOS 3 CASOS EN LOS QUE SE PUEDE BORRAR UN COMENTARIO (admin, autor del post o autor del comentario)
+            const isAdmin = req.user.role === 'admin'
+            const isCommentAuthor = comment.author.toString() === req.user.id
+            const isPostAuthor = post?.author.toString() === req.user.id
+
+            if (isAdmin || isCommentAuthor || isPostAuthor){
+                const deleted = await Comment.findByIdAndDelete(id)
+
+                if(deleted){
+                    return res.status(200).json({ message: 'Comentario eliminado correctamente'})
+                } else {
+
+                }
+            }
+
+
+            return res.status(403).json({ error: "No tienes permisos para eliminar este comentario"})
+                
             
         } catch (err) {
             next(err)

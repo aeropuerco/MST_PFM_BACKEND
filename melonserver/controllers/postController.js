@@ -71,7 +71,7 @@ const updatePost = async (req, res, next) => {
         }
 
         if (checkPost.author.toString() !== req.user.id) {
-            // Ojo, comprobamos que quien hizo login es el autor, para evitar estropearle el post a otros editores jeje
+            // Ojo, comprobamos que quien hizo login es el autor, para evitar estropearle el post a otros editores
             return res.status(403).json({ error: "No puedes editar posts de otros editores"})
         }
 
@@ -106,7 +106,7 @@ const deletePost = async (req, res, next) => {
 
         }
 
-        if (checkPost.author.toString() !== req.user.id) {
+        if (checkPost.author.toString() !== req.user.id && req.user.role !== 'admin') {
             // Ojo, comprobamos que quien hizo login es el autor, para evitar estropearle el post a otros editores jeje
             return res.status(403).json({ error: "No puedes eliminar posts de otros editores"})
         }
