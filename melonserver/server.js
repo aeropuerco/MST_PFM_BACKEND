@@ -62,6 +62,7 @@ app.get('/', (req, res) => {
 
 // Manejo de rutas no encontradas
 app.use((req,res)=> {
+    console.log(res);
     res.status(404).json({error: "Ruta no encontrada"})
 })
 
