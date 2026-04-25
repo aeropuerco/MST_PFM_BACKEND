@@ -30,7 +30,7 @@ const Post = require('../models/PostModel')
     const getCommentsByPost = async (req,res,next) => {
         try {
             const { id } = req.params; //path variable con params
-            const comments = await Comment.find({post: id })
+            const comments = await Comment.find({post: id }).populate('author','name')
             
             if(!comments){
                 return res.status(404).json({ error: "Post no encontado"}) // not found
