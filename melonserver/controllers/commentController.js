@@ -13,6 +13,9 @@ const Post = require('../models/PostModel')
             
             const newComment = new Comment(req.body);
             const savedComment = await newComment.save();
+
+            // Añado esto para que en la respuesta de creación, también llegue el nombre del autor.
+            await savedComment.populate('author', 'name')
         
             res.status(201).json(savedComment);
         }
