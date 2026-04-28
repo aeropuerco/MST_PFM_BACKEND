@@ -29,7 +29,7 @@ const createPost = async (req,res, next)=> {
 
 // TRAER TODOS LOS POSTS A MODO DE RESUMEN (PREVIA EN HOME) - Read - GET - /home
 const getAllPosts = async (req,res) => {
-    const allPosts = await Post.find({},{title:1, author:1, date:1, content_blocks:{ $slice:2} }).populate('author', 'name')
+    const allPosts = await Post.find({},{title:1, author:1, date:1, content_blocks:{ $slice:2} }).sort({date: -1 }).populate('author', 'name')
     // * esto filtra unicamente los campos title, author y date; y solamente los X primeros bloques del contenido.
     // * Post.find().select('title author date') tambien funciona pero no funcionaba lo de cortar parte de los bloques
 
