@@ -76,6 +76,12 @@ const Post = require('../models/PostModel')
             const isCommentAuthor = comment.author.toString() === req.user.id
             const isPostAuthor = post?.author.toString() === req.user.id
 
+            console.log("ROL :", req.user.role)
+            console.log("comentAutor :", comment.author.toString())
+            console.log("postAutor :", post?.author.toString())
+            console.log("user ID :", req.user.id)
+
+
             if (isAdmin || isCommentAuthor || isPostAuthor){
                 const deleted = await Comment.findByIdAndDelete(id)
 
