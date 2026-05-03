@@ -1,6 +1,3 @@
-// CONTROLADOR -- Contiene la lógica (funciones) que se ejecutan despues de llamar a las rutas
-
-// Recibe la peticion (req)  >>> Usa el modelo (importamos el modelo) y >> responde (res)
 
 //importar modelos
 const Comment = require('../models/CommentModel')
@@ -51,7 +48,10 @@ const Post = require('../models/PostModel')
 
     
 
-    // Eliminar un comentario - SOlo admins - Delete - DELETE - /:id
+    // Eliminar un comentario - SOlo admins, Autor del Post o Autor del comentario - Delete - DELETE - /:id
+        // Recibimos el user.role en la req por el middleware de "role". 
+        // En otras rutas lo recibimos por los MW de "editor" o "admin", pero en este caso editor y admin no dejaban pasar a visitors.
+        // Posible refactorizar.
     
     const deleteComment = async (req, res, next) => {
         try {

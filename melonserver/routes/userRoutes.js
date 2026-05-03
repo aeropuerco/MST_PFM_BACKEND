@@ -20,8 +20,10 @@ const {
     deleteUser
  } = require('../controllers/userController')
 
-
+ //RUTAS PUBLICAS
+ 
 //router.post('/createeditor', auth, admin, createEditor)
+    //NOTA: REUTILIZO AQUI Register para este caso tambien, forzando que el rol sea editor, y con MW de admin.
 router.post('/createeditor', auth, admin, setTargetRole('editor'), register)
 
 // Deja pedir lista de editores a todo el mundo. No devuelve pass. Comprobado

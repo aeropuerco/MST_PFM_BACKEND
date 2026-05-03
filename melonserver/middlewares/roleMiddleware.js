@@ -8,7 +8,7 @@ const role = async (req, res, next) => {
         const userId = req.user.id;
         const user = await User.findById(userId);
 
-
+        //Aqui le paso el rol a la request, para las rutas que solamente necesiten eso (para casos de visitors por ejemplo)
         req.user.role = user.role;
 
         next();

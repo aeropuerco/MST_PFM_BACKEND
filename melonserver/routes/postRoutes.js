@@ -17,6 +17,9 @@ const {
     deletePost
  } = require('../controllers/postController')
 
+
+ //RUTAS PUBLICAS
+ 
  // Solamente permite crear post a los editores. El nombre del autor lo coge del id del login que llega del mw:auth. No deja indicar un author diferente en la petición.  Comprobado
 router.post('/createpost', auth, editor, createPost)
 

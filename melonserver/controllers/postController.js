@@ -1,6 +1,3 @@
-// CONTROLADOR -- Contiene la lógica (funciones) que se ejecutan despues de llamar a las rutas
-
-// Recibe la peticion (req)  >>> Usa el modelo (importamos el modelo) y >> responde (res)
 
 //importar modelos
 const Post = require('../models/PostModel')
@@ -58,7 +55,7 @@ const getPostById = async (req,res,next) => {
 }
 
 
-// Actualizar un post - Update - PUT - /:id
+// Actualizar un post - SOLO editor que sea autor - Update - PUT - /:id
 
 const updatePost = async (req, res, next) => {
     try {
@@ -94,7 +91,7 @@ const updatePost = async (req, res, next) => {
     
 }
 
-// Eliminar un post - Delete - DELETE - /:id
+// Eliminar un post - SOLO ADMINS o AUTOR DEL POST - Delete - DELETE - /:id
 
 const deletePost = async (req, res, next) => {
     try {
@@ -108,7 +105,7 @@ const deletePost = async (req, res, next) => {
         }
 
         if (checkPost.author.toString() !== req.user.id && req.user.role !== 'admin') {
-            // Ojo, comprobamos que quien hizo login es el autor, para evitar estropearle el post a otros editores jeje
+            // Ojo, comprobamos que quien hizo login es el autor, para evitar estropearle el post a otros editores
             return res.status(403).json({ error: "No puedes eliminar posts de otros editores"})
         }
 

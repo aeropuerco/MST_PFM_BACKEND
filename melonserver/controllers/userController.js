@@ -1,6 +1,3 @@
-// CONTROLADOR -- Contiene la lógica (funciones) que se ejecutan despues de llamar a las rutas
-
-// Recibe la peticion (req)  >>> Usa el modelo (importamos el modelo) y >> responde (res)
 
 //importar modelos
 const User = require('../models/UserModel')
@@ -8,7 +5,8 @@ const User = require('../models/UserModel')
 
 
 // Crear un editor - SOLO ADMINS -  Create - POST - /
-// ELIMINAR SI FUNCIONA EL AÑADIR ROL DESDE LA RUTA, USANDO REGISTER
+// ELIMINADO, PORQUE FUNCIONA REUTILIZAR funcion "register", FORZANDO EL ROL DESDE LA RUTA + MW de ADMIN porque solo Admins pueden crear Editores
+/* 
 const createEditor = async (req,res, next)=> {
     try{
         
@@ -22,12 +20,12 @@ const createEditor = async (req,res, next)=> {
         res.status(201).json(savedEditor);
     }
     catch (err) {
-        //manejo del error de la petición
-        //res.status(400).json({error: err.message}) // 400: Bad request
-        // gestion de errores con middleware
+
         next(err)
     }
 }
+ */
+
 
 // TRAER TODOS LOS USUARIOS - Read - GET - /home
 const getAllEditors = async (req,res) => {
