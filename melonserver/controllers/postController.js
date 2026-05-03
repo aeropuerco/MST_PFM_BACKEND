@@ -40,6 +40,7 @@ const getAllPosts = async (req,res) => {
 // Abrir un post completo - Read - GET - /:id
 const getPostById = async (req,res,next) => {
     try {
+
         const { id } = req.params; //path variable con params
         const post = await Post.findById(id).populate('author', 'name'); // Esto reemplaza el ID por el nombre en la otra col. Buen truco!
         

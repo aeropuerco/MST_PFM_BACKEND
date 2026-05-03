@@ -9,6 +9,7 @@ const {auth} = require('../middlewares/authMiddleware')
 
 const editor = require('../middlewares/editorMiddleware')
 const admin = require('../middlewares/adminMiddleware')
+const role = require('../middlewares/roleMiddleware')
 
 
 const { 
@@ -24,8 +25,8 @@ router.get('/post/:id', getCommentsByPost)
 
 //router.put('/:id', updatePost)  // LOS COMENTARIOS NO SE PUEDEN EDITAR
 
-// SOLO PUEDEN BORRAR EDITOR+AUTOR Y ADMINS
-router.delete('/delete/:id', auth, editor, deleteComment)
+// SOLO PUEDEN BORRAR OWNER+EDITOR+AUTOR Y ADMINS
+router.delete('/delete/:id', auth, role, deleteComment)
 
 
 

@@ -9,7 +9,7 @@ const admin = async (req, res, next) => {
         const user = await User.findById(userId);
 
         if (!user || user.role !== 'admin') {
-            return res.status(403).json({error: "Acceso denegado"})
+            return res.status(403).json({error: "admin: Acceso denegado"})
         }
 
 

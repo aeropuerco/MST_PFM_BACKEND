@@ -1,18 +1,12 @@
 const User = require('../models/UserModel')
 
-
-const editor = async (req, res, next) => {
+// MIDDLEWARE PARA AÑADIR EL ROLE A LA REQUEST. (Me hace falta el rol aunque no sean admin o editores, por ejemplo al borrar un comentario propio)
+const role = async (req, res, next) => {
     try {
         // necesitamos req.user.id del middleware anterior
 
         const userId = req.user.id;
         const user = await User.findById(userId);
-
-
-        
-        if (!user || user.role !== 'editor' && user.role !== 'admin') {
-            return res.status(403).json({error: "editor: Acceso denegado"})
-        }
 
 
         req.user.role = user.role;
@@ -25,4 +19,4 @@ const editor = async (req, res, next) => {
     }
 }
 
-module.exports = editor;
+module.exports = role;

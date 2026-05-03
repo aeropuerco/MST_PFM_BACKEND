@@ -55,6 +55,8 @@ const Post = require('../models/PostModel')
     
     const deleteComment = async (req, res, next) => {
         try {
+
+            console.log("DENTRO DE deleteComment");
             const {id} = req.params;
 
             // Comprobaciones previa para ver autor de comentario, del post, para saber si se puede eliminar
