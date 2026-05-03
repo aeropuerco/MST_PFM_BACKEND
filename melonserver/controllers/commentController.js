@@ -56,7 +56,7 @@ const Post = require('../models/PostModel')
     const deleteComment = async (req, res, next) => {
         try {
 
-            console.log("DENTRO DE deleteComment");
+           
             const {id} = req.params;
 
             // Comprobaciones previa para ver autor de comentario, del post, para saber si se puede eliminar
@@ -78,10 +78,10 @@ const Post = require('../models/PostModel')
             const isCommentAuthor = comment.author.toString() === req.user.id
             const isPostAuthor = post?.author.toString() === req.user.id
 
-            console.log("ROL :", req.user.role)
-            console.log("comentAutor :", comment.author.toString())
-            console.log("postAutor :", post?.author.toString())
-            console.log("user ID :", req.user.id)
+            //console.log("ROL :", req.user.role)
+            //console.log("comentAutor :", comment.author.toString())
+            //console.log("postAutor :", post?.author.toString())
+            //console.log("user ID :", req.user.id)
 
 
             if (isAdmin || isCommentAuthor || isPostAuthor){
