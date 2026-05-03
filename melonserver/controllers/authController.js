@@ -81,7 +81,7 @@ const login = async (req,res,next) =>{
         }
 
         // creamos el token de la sesión si la pass estaba bien
-        console.log("LOGIN OK" + name)
+        //console.log("LOGIN OK" + name)
         
         const token = createToken(user._id)
 

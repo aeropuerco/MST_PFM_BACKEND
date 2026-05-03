@@ -1,7 +1,7 @@
 // Middleware centralizado de gestion de errores
 
 const errors = (err, req, res, next) => {
-    console.log("🔴 Error", err.message)
+    //console.log("🔴 Error", err.message)
 
     // Error de servidor
     if (!err.status){
