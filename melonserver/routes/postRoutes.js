@@ -21,7 +21,7 @@ const {
  //RUTAS PUBLICAS
  
  // Solamente permite crear post a los editores. El nombre del autor lo coge del id del login que llega del mw:auth. No deja indicar un author diferente en la petición.  Comprobado
-router.post('/createpost', auth, editor, createPost)
+router.post('/create', auth, editor, createPost)
 
 // Recibe los id de los autores, y con populate recibe el string del nombre. Comprobado
 router.get('/', getAllPosts)

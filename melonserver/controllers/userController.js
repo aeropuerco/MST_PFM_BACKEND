@@ -111,7 +111,7 @@ const deleteUser = async (req, res, next) => {
 // EXPORTACIONES
 
 module.exports  = { 
-    createEditor,
+    //createEditor,
     getAllEditors,
     getUserById,
     updateUser,
