@@ -57,7 +57,7 @@ app.use('/api/auth', authRoutes)
 // ? ////////////////////////////////////////////////////////////////
 
 app.get('/', (req, res) => {
-    res.send("¡Servidor ON + CORS!");
+    res.send("¡mel_onserver 🍈: ON!");
 });
 
 // Manejo de rutas no encontradas
