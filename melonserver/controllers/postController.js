@@ -27,11 +27,28 @@ const createPost = async (req,res, next)=> {
 // TRAER TODOS LOS POSTS A MODO DE RESUMEN (PREVIA EN HOME) - Read - GET - /home
 const getAllPosts = async (req,res) => {
     const allPosts = await Post.find({},{title:1, author:1, date:1, content_blocks:{ $slice:2} }).sort({date: -1 }).populate('author', 'name')
+
     // * esto filtra unicamente los campos title, author y date; y solamente los X primeros bloques del contenido.
     // * Post.find().select('title author date') tambien funciona pero no funcionaba lo de cortar parte de los bloques
 
+    // Controlamos cuando el editor ha sido eliminado.
+    // No eliminamos automaticamente los posts para no perder contenido
+    const cleanPosts = allPosts.map(post => {
+        const postObj = post.toObject();
+        
+        if (!postObj.author){
+            postObj.author = {
+                _id: "deleted",
+                name: "Redaccion"
+            }; 
+        }
+        return postObj;
+    })
+    
 
-    res.status(200).json(allPosts)
+    return res.status(200).json(cleanPosts) // 200 : OK
+
+
 }
 
 // Abrir un post completo - Read - GET - /:id
@@ -43,6 +60,20 @@ const getPostById = async (req,res,next) => {
         
         if(!post){
             return res.status(404).json({ error: "Post no encontado"}) // not found
+        }
+
+        // Controlamos cuando el editor ha sido eliminado y lo marcamos como autor= Redaccion
+        // No eliminamos automaticamente todos sus posts para no perder contenido
+        if (post && !post.author){
+
+            const postObject = post.toObject();
+            // Creamos un "Autor Fantasma"
+            postObject.author = {
+                _id: "deleted",
+                name: "Redaccion"
+            };
+            
+            return res.status(200).json(postObject);
         }
 
         return res.status(200).json(post) // 200 : OK

@@ -35,8 +35,28 @@ const Post = require('../models/PostModel')
             if(!comments){
                 return res.status(404).json({ error: "Post no encontado"}) // not found
             }
+
+
+            // Controlamos cuando el editor ha sido eliminado.
+            // No eliminamos automaticamente los comentarios para no perder contenido
+            const cleanComments = comments.map(comment => {
+                const commentObj = comment.toObject();
+                
+                if (!commentObj.author){
+ 
+                    commentObj.author = {
+                        _id: "deleted",
+                        name: "usuarioEliminado"
+                    };
+                    
+                   
+                }
+                return commentObj;
+            })
+            
     
-            return res.status(200).json(comments) // 200 : OK
+            return res.status(200).json(cleanComments) // 200 : OK
+
         } catch (error) {
             //return res.status(400).json( { error: 'ID invalido'}) // 400: Id no es valido
             // gestion de errores con middleware
